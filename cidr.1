@@ -1,0 +1,98 @@
+.TH CIDR 1
+.SH NAME
+cidr \- RFC 1878 subnet helper
+.SH SYNOPSIS
+.TP
+.B cidr [\-v]
+.TP
+.B cidr <ipaddress/prefix> [\-H]
+.TP
+.B cidr <\-b|\-q|\-h|\-d> <ipaddress> <\-b|\-q|\-h|\-d|\-p> <mask|prefix> [\-H]
+.SH DESCRIPTION
+.B cidr
+is a utility for determining the network address and broadcast address
+for a CIDR subnet.  It takes as input an ip address and netmask in
+binary, dotted-quad, hexadecimal, decimal or prefix formats.  It outputs
+the network address, broadcast address, and a count (and optionally a list)
+of valid host addresses for the corresponding subnet.
+.SH OPTIONS
+.TP
+.B \-v
+print version information
+.TP
+.B "-b <ipaddress|mask>"
+IP address or mask as a binary number
+.TP
+.B "-q <ipaddress|mask>"
+ip address or mask as a dotted-quad
+.TP
+.B "-h <ipaddress|mask>"
+ip address or mask as a hexadecimal number
+.TP
+.B "-d <ipaddress|mask>"
+ip address or mask as a decimal number
+.TP
+.B "-p <prefix>"
+netmask as a CIDR prefix (decimal integer 1-32) 
+.TP
+.B \-H
+print a list of valid host addresses
+.TP
+.B ipaddress
+ip address in the form specified by option -b, -q, -h, or -d
+.TP
+.B mask
+netmask in the form specified by option -b, -q, -h, or -d
+.TP
+.B prefix
+netmask as a CIDR prefix (decimal integer 1-32)
+.SH EXAMPLES
+
+cidr 192.168.14.56/27
+
+cidr 192.168.14.56/27 -H
+
+Note:  The above forms only support dotted-quad ip address and prefix netmask.
+
+cidr -q 192.168.14.56 -h ffffff00
+
+cidr -q 192.168.14.56 -q 255.255.255.0 -H
+
+cidr -h 0xfe12abcf -b 11111111111111111111111100000000
+
+cidr -d 2929937821 -p 32 
+
+cidr -b 11110000101010100101010111001100 -p 24 -H
+.SH BUGS
+Hangs on calculation of 255.255.255.255/32
+.SH COPYRIGHT
+cidr.c -- determine CIDR network and broadcast address from
+IPv4 ip address and netmask
+
+Copyright (C) 2000 Robert L. Lineberger 
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+.SH AUTHOR
+Robert L. Lineberger <robert@geeksoul.com>
+.SH CONTRIBUTORS
+David A. Bandel
+
+Iain Lea
+
+Herman Robers
+.SH SEE ALSO
+RFC 1878
+

@@ -1,0 +1,191 @@
+This is the README for cidr, a program to calculate CIDR network and broadcast
+addresses for a given IP and mask.  I wrote this primarily to aid myself
+in reconfiguring my home LAN, where I often change IP addresses and subnet
+ranges, because I find it difficult to remember the appropriate network 
+and broadcast address for a given /N subnet.  The proper addresses are
+found in the subnet tables in RFC 1878. 
+
+The program takes an IP and netmask and outputs the network address,
+broadcast address, and total number of addresses for the corresponding
+subnet.  The IP address can be in binary, decimal, hexadecimal, or
+dotted-quad form, and the mask can be in binary, decimal, hex, dotted-quad,
+or prefix.  I decided to have the program accept those forms of input
+primarily as a learning tool, since I thought it would be interesting to
+see how bitwise changes in an IP address affect the dotted-quad form of
+that address.
+
+To build the program, unpack the tarball and type "make".  The file "cidr.1"
+is the manual page.  Read it with `groff -Tascii -man cidr.1 | more` or put it
+in your "man1" directory. 
+
+Example uses:
+
+$ ./cidr 192.168.112.97/27
+
+ip address..........:  192.168.112.97
+netmask.............:  255.255.255.224
+
+network address.....:  192.168.112.96
+broadcast address...:  192.168.112.127
+
+please wait while host addresses are validated...
+
+total host addresses:  30
+
+$
+
+The corresponding entry in RFC 1878 ( "<-----" denotes the above range):
+---------
+Subnet Mask     # of nets    Net. Addr.  Host Addr Range  Brodcast Addr.
+Bits of Subnet  hosts/subnet
+...
+255.255.255.224 8 nets       N.N.N.0     N.N.N.1-30       N.N.N.31
+3 bit Class C   30           N.N.N.32    N.N.N.33-62      N.N.N.63
+11 bit Class B               N.N.N.64    N.N.N.65-94      N.N.N.95
+                             N.N.N.96    N.N.N.97-126     N.N.N.127 <-----
+                             N.N.N.128   N.N.N.129-158    N.N.N.159
+                             N.N.N.160   N.N.N.161-190    N.N.N.191
+                             N.N.N.192   N.N.N.193-222    N.N.N.223
+                             N.N.N.224   N.N.N.225-254    N.N.N.255
+---------
+
+$ ./cidr -h c0a8abcd -p 27
+
+ip address..........:  192.168.171.205
+netmask.............:  255.255.255.224
+
+network address.....:  192.168.171.192
+broadcast address...:  192.168.171.223
+
+please wait while host addresses are validated...
+
+total host addresses:  30
+
+$ ./cidr -b 00001010000110001100000111110000 -p 24
+
+ip address..........:  10.24.193.240
+netmask.............:  255.255.255.0
+
+network address.....:  10.24.193.0
+broadcast address...:  10.24.193.255
+
+please wait while host addresses are validated...
+
+total host addresses:  254
+
+$
+$ ./cidr -b 00001010000001000000001101110000 -b \
+> 11111111111111111111111111110000
+
+ip address..........:  10.4.3.112
+netmask.............:  255.255.255.240
+
+network address.....:  10.4.3.112
+broadcast address...:  10.4.3.127
+
+please wait while host addresses are validated...
+
+total host addresses:  14
+
+$ ./cidr -q 192.168.100.15 -h ffffff00
+
+ip address..........:  192.168.100.15
+netmask.............:  255.255.255.0
+
+network address.....:  192.168.100.0
+broadcast address...:  192.168.100.255
+
+please wait while host addresses are validated...
+
+total host addresses:  254
+
+$ 
+$ ./cidr -q 192.168.122.0 -p 28 -H
+
+ip address..........:  192.168.122.0
+netmask.............:  255.255.255.240
+
+network address.....:  192.168.122.0
+broadcast address...:  192.168.122.15
+
+host addresses:
+
+192.168.122.1
+192.168.122.2
+192.168.122.3
+192.168.122.4
+192.168.122.5
+192.168.122.6
+192.168.122.7
+192.168.122.8
+192.168.122.9
+192.168.122.10
+192.168.122.11
+192.168.122.12
+192.168.122.13
+192.168.122.14
+
+total host addresses:  14
+
+$
+
+And a few with odd netmasks:
+
+$ ./cidr -q 192.168.122.0 -h ffffff99 -H
+
+ip address..........:  192.168.122.0
+netmask.............:  255.255.255.153
+
+network address.....:  192.168.122.0
+broadcast address...:  192.168.122.102
+
+host addresses:
+
+192.168.122.2
+192.168.122.4
+192.168.122.6
+192.168.122.32
+192.168.122.34
+192.168.122.36
+192.168.122.38
+192.168.122.64
+192.168.122.66
+192.168.122.68
+192.168.122.70
+192.168.122.96
+192.168.122.98
+192.168.122.100
+
+total host addresses:  14
+
+$
+$ ./cidr -q 10.0.0.0 -q 255.0.0.8
+
+ip address..........:  10.0.0.0
+netmask.............:  255.0.0.8
+
+network address.....:  10.0.0.0
+broadcast address...:  10.255.255.247
+
+please wait while host addresses are validated...
+
+total host addresses:  8388606
+
+$
+
+Compare the host count above with a normal /8 count:
+
+$ ./cidr -q 10.0.0.0 -q 255.0.0.0
+
+ip address..........:  10.0.0.0
+netmask.............:  255.0.0.0
+
+network address.....:  10.0.0.0
+broadcast address...:  10.255.255.255
+
+please wait while host addresses are validated...
+
+total host addresses:  16777214
+
+$
+

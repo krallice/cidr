@@ -1,0 +1,70 @@
+*******************  VERSION 2.3.2 *********************
+More free() troubles.  Thanks to ken_yap atatatat E M A I L dot C O M
+for pointing out a segfault.  Took out malloc()/free() calls for both
+holdaddress and holdprefix.  strtok() calls assign these pointers right
+off anyway.
+
+Thanks to Herman Robers <herman.robers@pinewood.nl>
+for the Solaris and RedHat stuff, and the nice Makefile.
+ 
+*******************  VERSION 2.3.1 *********************
+doh!
+Bugfix in cleanup.  Pointers had been set to NULL before free()'ing.
+ 
+*******************  VERSION 2.3 ***********************
+
+Improvements:
+
+1.  Manual page.
+
+2.  "-v" option to print version information.
+
+3.  modified usage().
+
+Minor bugfixes:
+
+1.  Fixed problem with segfault when only one argument is given and
+    that argument is not valid.
+
+2.  Fixed stupid malloc().
+
+*******************  VERSION 2.2 *********************
+
+This version incorporates ideas suggested by Iain Lea, namely:
+
+1. Short form usage, such as `cidr 192.168.1.1/27`
+2. Better output format.  IP addresses are aligned.
+3. Example uses in usage() output.
+
+I think these are nice improvements and justify this somewhat rapid
+update.
+
+Bugs:
+
+1. Doug Denny reports that inet_aton() and inet_ntoa() cause linker
+   errors when building cidr 2.0 under Solaris 2.7.
+
+2. ip address 255.255.255.255 / mask 255.255.255.255 seems to hang on
+   the host count.  I say "seems" because for some masks there is a long
+   wait while it calculates the host count, but those masks are usually
+   the ones resulting in a large number of hosts, such as a /8 and above.
+   A /32 count is usually instantaneous, but it seems to get stuck when
+   used with 255.255.255.255 ip address.
+
+All previous functionality remains.  Long form is still there:
+i.e. `cidr -b 11111111000000001111111100000000 -q 255.255.255.255 -H`
+
+*******************  VERSION 2 *****************************
+
+This version incorporates ideas suggested by David A. Bandel:
+
+1. There is now a "-H" option to print host addresses.
+
+2. The host addresses will correctly represent valid addresses for
+   unusual netmasks, i.e., masks with non-contiguous 1-bits, such as
+   11111111111111111111111100001000
+
+3. The total addresses count now reflects only a count of valid host
+   addresses within the given subnet.  In version 1, the network address
+   and broadcast address were included in the count.
+
