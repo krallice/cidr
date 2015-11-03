@@ -40,7 +40,7 @@ void hosts(unsigned long int,
            struct in_addr );
 void print_version(void);
 
-const char *version_val="2.3.2";
+const char *version_val="2.4.0";
 
 int main(int argc, char *argv[])
 {
@@ -408,60 +408,44 @@ else
  return EXIT_SUCCESS;
 }
 
-void print_version(void)
-{
- fprintf(stderr,"cidr version %s\n",version_val);
- exit(EXIT_SUCCESS);
+// Print Version information to end user:
+void print_version(void) {
+
+	fprintf(stderr,"cidr version %s\n",version_val);
+	exit(EXIT_SUCCESS);
 }
 
-void usage(char *arg)
-{
- printf("\ncidr version %s July 17, 2001\n", version_val);
- printf("Copyright 2000 Robert L. Lineberger\n");
- printf("robert@geeksoul.com\n");
- printf("http://geeksoul.com/robert/cidr.html\n");
- printf("License: GPL\n\n");
+// Print Usage Patterns to end user:
+void usage(char *arg) {
 
- printf("Contributors:\n");
- printf("David A. Bandel\n");
- printf("Iain Lea\n");
- printf("Herman Robers\n\n");
+	printf("\ncidr version %s October, 2015\n", version_val);
+	printf("Copyright 2000 Robert L. Lineberger\n");
+	printf("Version 2.4.X Heavily Modified 2015 Stephen Rozanc\n");
+	printf("robert@geeksoul.com\n");
+	printf("http://geeksoul.com/robert/cidr.html\n");
+	printf("https://github.com/krallice\n");
+	printf("License: GPL\n\n");
 
- printf(
-    "Usage:\n\n" 
-    "%s [-v]\n\n"
-    "No arguments\tprint this usage()\n"
-    "\t-v\tprint version information\n\n" 
-    "Short form:\n\n"
-    "%s <ipaddress/prefix> [-H]\n\n"
-    "Note: Short form only supports dotted-quad ip address and\n"
-    "      decimal(integer) prefix.  Host list (\"-H\") is optional.\n\n" 
-    "Long form:\n\n"
-    "%s <-b|-q|-h|-d> <ipaddress> <-b|-q|-h|-d|-p> <mask|prefix>"
-    " [-H]\n",arg,arg,arg);
+	printf("Contributors:\n");
+	printf("David A. Bandel\n");
+	printf("Iain Lea\n");
+	printf("Herman Robers\n");
+	printf("Stephen Rozanc\n\n");
 
- printf("\nlong form ipaddress options:\n");
- printf("\t-b\tip address as a binary number\n");
- printf("\t-q\tip address as a dotted quad address\n");
- printf("\t-h\tip address as a hexadecimal number\n");
- printf("\t-d\tip address as a decimal number\n");
- printf("\nlong form mask/prefix options:\n");
- printf("\t-b\taddress mask as a binary number\n");
- printf("\t-q\taddress mask as a dotted quad\n");
- printf("\t-h\taddress mask as a hexadecimal number\n");
- printf("\t-d\taddress mask as a decimal number\n");
- printf("\t-p\taddress mask as a prefix\n");
- printf("\t\t(e.g. a prefix of 27 represents a\n");
- printf("\t\tmask of 255.255.255.224)\n");
- printf("\nhostlist option:\n");
- printf("\t-H\tprint list of valid host ip's\n\n");
- printf("Short form example:\n");
- printf("\tcidr 192.168.100.25/27\n");
- printf("\nLong form example:\n");
- printf("\tcidr -q 192.168.30.1 -p 30 -H\n");
- printf("\tcidr -q 10.12.95.125 -q 255.255.255.224\n\n"); 
+	printf(
+	"Usage:\n\n" 
+	"%s [-v]\n\n"
+	"No arguments\tprint this usage()\n"
+	"\t-v\tprint version information\n\n" 
+	"Short form:\n\n"
+	"%s <ipaddress/prefix> \n\n"
+	"Note: Short form only supports dotted-quad ip address and\n"
+	"      decimal(integer) prefix i.e 192.168.1.10/24.\n\n" 
+	"Long form:\n\n"
+	"%s <ipaddress>  <subnetmask>"
+	" [-H]\n",arg,arg,arg);
 
- exit(EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
 
 void range_error(int argnum)
