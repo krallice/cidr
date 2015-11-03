@@ -21,32 +21,8 @@
 
 ***************************************************************************/
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/param.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <string.h>
-
-void usage(char *);
-void range_error(int);
-void invalid(int, char *);
-void hosts(unsigned long int,
-           unsigned long int,
-           unsigned long int,
-           int,
-           struct in_addr,
-           struct in_addr );
-void print_version(void);
-
-const char *version_val="2.4.0";
-
-typedef struct network_struct {
-	struct in_addr host;
-	struct in_addr mask;
-} network_t;
+#include "cidr.h"
+#include "network.h"
 
 int main( int argc, char *argv[] ) {
 
@@ -93,6 +69,7 @@ int main( int argc, char *argv[] ) {
 
 	}
 
+//	printf("Netmask.....%s", inet_ntop(AF_INET,&network.mask));
 	return 0;
 
  struct in_addr in;
