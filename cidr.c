@@ -31,7 +31,7 @@
 
 void usage(char *);
 void range_error(int);
-void invalid(int);
+void invalid(int, char *);
 void hosts(unsigned long int,
            unsigned long int,
            unsigned long int,
@@ -144,21 +144,21 @@ int main(int argc, char *argv[])
 
    holdaddress=strtok(ip[2],sep);
    if(holdaddress==NULL)
-    invalid(1);
+    invalid(1, argv[0]);
 
 
    strncpy(ip[0],holdaddress,strlen(holdaddress));
    if(ip[0]==NULL)
-    invalid(1);
+    invalid(1, argv[0]);
 
    holdprefix=strtok(NULL,sep);
    if(holdprefix==NULL)
-    invalid(1);  
+    invalid(1, argv[0]);  
 
 
    strncpy(ip[1],holdprefix,strlen(holdprefix));
    if(ip[1]==NULL)
-    invalid(1); 
+    invalid(1, argv[0]); 
 
 
   }
@@ -245,7 +245,7 @@ if(argc==5||argc==6)
    } 
    else
    {
-    invalid(2);
+    invalid(2, argv[0]);
    } 
   }
 
@@ -262,7 +262,7 @@ if(argc==5||argc==6)
  {
   if( inet_aton(argv[2],&in) == 0 )
   {
-    invalid(2);
+    invalid(2, argv[0]);
   }
  }
 
@@ -270,7 +270,7 @@ if(argc==5||argc==6)
  {
   if( inet_aton(ip[0],&in) == 0 )
   {
-    invalid(1);
+    invalid(1, argv[0]);
   }
  }
 
@@ -278,7 +278,7 @@ if(argc==5||argc==6)
 /*********** unrecognized input ************/
  
  else
-  invalid(1);
+  invalid(1, argv[0]);
 
 /************************************************************************/
 
@@ -330,7 +330,7 @@ if(argc==5||argc==6)
    } 
    else
    {
-    invalid(4);
+    invalid(4, argv[0]);
    } 
   }
 
@@ -348,7 +348,7 @@ if(argc==5||argc==6)
  {
   if( inet_aton(argv[4],&ma) == 0 )
   {
-    invalid(4);
+    invalid(4, argv[0]);
   }
   mask=ntohl(ma.s_addr);
  }
@@ -375,7 +375,7 @@ if(argc==5||argc==6)
 
 /************ unrecognized input **************/
  else
-  invalid(3);
+  invalid(3, argv[0]);
 
 /*******************************************/
 
@@ -470,9 +470,10 @@ void range_error(int argnum)
  exit(EXIT_FAILURE);
 }
 
-void invalid(int argnum)
+void invalid(int argnum, char* procpath)
 {
  printf("invalid argument: argv[%d]\n",argnum);
+ usage(procpath);
  exit(EXIT_FAILURE);
 }
 
