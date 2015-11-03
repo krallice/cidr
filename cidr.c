@@ -3,6 +3,7 @@
     cidr.c -- determine CIDR network and broadcast address from
     IPV4 ip address and netmask
     Copyright (C) 2000 Robert L. Lineberger 
+    Heavily Modified 2015 Stephen Rozanc.
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -42,8 +43,57 @@ void print_version(void);
 
 const char *version_val="2.4.0";
 
-int main(int argc, char *argv[])
-{
+typedef struct network_struct {
+	struct in_addr host;
+	struct in_addr mask;
+} network_t;
+
+int main( int argc, char *argv[] ) {
+
+	// Define our network structure:
+	network_t network;
+
+	// If not enough (or too many) arguments are supplied, bomb out:
+	if ( argc < 2 || argc > 3 ) {
+		invalid(0, argv[0]);
+	
+	// Else if we have exactly 2 arguments (filename + switch):
+	} else if ( argc == 2 ) {
+
+		// Check to see if user is requesting version information:
+		if (strncmp((const char *) argv[1],"-v",2) == 0) {
+			print_version();
+
+		// Is user requesting help information?
+		} else if (strncmp((const char *) argv[1],"-h",2) == 0) {
+			usage(argv[0]);
+
+		// Else end user is entering CIDR notation, let's check:
+		// TODO: Implement CIDR
+		//} else if (CIDR CHECK) {
+		//
+		//}	
+
+		// Otherwise bomb out:
+		} else {
+			invalid(0, argv[0]);
+		}
+
+	// End user has entered 2 arguments, hopefully meaning ip + subnet mask:`
+	} else if ( argc == 3 ) {
+
+		// Check to see if our IP/Masks are valid:
+		if ( inet_pton(AF_INET, argv[1], &network.host ) != 1 ) {
+			invalid(1, argv[1]);
+		}
+		// Check our subnet mask:
+		if ( inet_pton(AF_INET, argv[2], &network.mask ) != 1 ) {
+			invalid(2, argv[2]);
+		}		
+
+	}
+
+	return 0;
 
  struct in_addr in;
  struct in_addr ma;
@@ -443,7 +493,7 @@ void usage(char *arg) {
 	"      decimal(integer) prefix i.e 192.168.1.10/24.\n\n" 
 	"Long form:\n\n"
 	"%s <ipaddress>  <subnetmask>"
-	" [-H]\n",arg,arg,arg);
+	"     \n\n",arg,arg,arg);
 
 	exit(EXIT_FAILURE);
 }
