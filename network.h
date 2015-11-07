@@ -29,13 +29,15 @@ typedef struct network_struct {
 	struct in_addr mask;
 } network_t;
 
+#define STRLEN 64
+
 // Getters:
 int setSubnetMask(network_t *, char *); 
 int setIPAddress(network_t *, char *);
 void printNetworkDetails(network_t*);
 
 // Setters:
-char *getIPAddress(network_t *, char *);
-void getSubnetMask(network_t *, char *);
+void getIPAddress(network_t *, char *, int l);
+void getSubnetMask(network_t *, char *, int l);
 
 #endif

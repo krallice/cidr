@@ -32,13 +32,22 @@ int setSubnetMask(network_t *n, char *mask) {
 	return inet_pton(AF_INET, mask, &(n->mask) );
 }
 
-void getSubnetMask(network_t *n, char *s) {
-	inet_ntop(AF_INET, &(n->mask), s, 32);
+void getIPAddress(network_t *n, char *s, int l) {
+	inet_ntop(AF_INET, &(n->host), s, l);
+}
+
+void getSubnetMask(network_t *n, char *s, int l) {
+	inet_ntop(AF_INET, &(n->mask), s, l);
 }
 
 void printNetworkDetails(network_t *n) {
 
-	char *subnetMask = "255.255.255.255";
-	getSubnetMask(&n, subnetMask);
+	char subnetMask[STRLEN] = "";
+	char hostAddress[STRLEN] = "";
+
+	getIPAddress(n, hostAddress, STRLEN);
+	getSubnetMask(n, subnetMask, STRLEN);
+
+	printf("Host Address ... %s\n", hostAddress);
 	printf("Subnet Mask ... %s\n", subnetMask);
 }

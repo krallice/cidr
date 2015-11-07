@@ -63,7 +63,6 @@ int main( int argc, char *argv[] ) {
 	}
 
 	printNetworkDetails(&network);
-
 }
 
 // Print Usage Patterns to end user:
