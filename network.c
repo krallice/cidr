@@ -40,14 +40,25 @@ void getSubnetMask(network_t *n, char *s, int l) {
 	inet_ntop(AF_INET, &(n->mask), s, l);
 }
 
+void getNetworkAddress(network_t *n, char *s, int l) {
+
+	struct in_addr netAddr;
+	netAddr.s_addr = n->host.s_addr & n->mask.s_addr;
+	inet_ntop(AF_INET, &netAddr, s, l);
+}
+
 void printNetworkDetails(network_t *n) {
 
 	char subnetMask[STRLEN] = "";
 	char hostAddress[STRLEN] = "";
+	char networkAddress[STRLEN] = "";
 
 	getIPAddress(n, hostAddress, STRLEN);
 	getSubnetMask(n, subnetMask, STRLEN);
+	getNetworkAddress(n, networkAddress, STRLEN);
 
 	printf("Host Address ... %s\n", hostAddress);
+	printf("---\n");
+	printf("Network Address ... %s\n", networkAddress);
 	printf("Subnet Mask ... %s\n", subnetMask);
 }

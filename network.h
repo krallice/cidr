@@ -39,5 +39,6 @@ void printNetworkDetails(network_t*);
 // Setters:
 void getIPAddress(network_t *, char *, int l);
 void getSubnetMask(network_t *, char *, int l);
+void getNetworkAddress(network_t *, char *, int l);
 
 #endif
