@@ -29,6 +29,11 @@ typedef struct network_struct {
 	struct in_addr mask;
 } network_t;
 
+// Getters:
+int setSubnetMask(network_t *, char *); 
+int setIPAddress(network_t *, char *);
+
+// Setters:
 void *getSubnetMask(network_t *, char *, size_t);
 
 #endif

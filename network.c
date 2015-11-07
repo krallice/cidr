@@ -21,7 +21,18 @@
 
 ***************************************************************************/
 
-void *getSubnetMask(network_t *n, char *s, size_t l) {
+#include "cidr.h"
+#include "network.h"
+
+int setIPAddress(network_t *n, char *host) {
+	return inet_pton(AF_INET, host, &(n->host) );
+}
+
+int setSubnetMask(network_t *n, char *mask) {
+	return inet_pton(AF_INET, mask, &(n->mask) );
+}
+
+/*void *getSubnetMask(network_t *n, char *s, size_t l) {
 
 	inet_ntop
-}
+}*/

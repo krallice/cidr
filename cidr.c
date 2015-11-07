@@ -24,6 +24,8 @@
 #include "cidr.h"
 #include "network.h"
 
+const char *version_val="2.4.0";
+
 int main( int argc, char *argv[] ) {
 
 	// Define our network structure:
@@ -59,14 +61,12 @@ int main( int argc, char *argv[] ) {
 	} else if ( argc == 3 ) {
 
 		// Check to see if our IP/Masks are valid:
-		if ( inet_pton(AF_INET, argv[1], &network.host ) != 1 ) {
+		if ( setIPAddress(&network, argv[1]) != 1 ) {
 			invalid(1, argv[1]);
 		}
-		// Check our subnet mask:
-		if ( inet_pton(AF_INET, argv[2], &network.mask ) != 1 ) {
+		if ( setSubnetMask(&network, argv[2]) != 1 ) {
 			invalid(2, argv[2]);
-		}		
-
+		}
 	}
 
 //	printDetails(&network);
