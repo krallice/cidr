@@ -42,5 +42,6 @@ void printNetworkDetails(network_t*);
 void getIPAddress(network_t *, char *, int l);
 void getSubnetMask(network_t *, char *, int l);
 void getNetworkAddress(network_t *, char *, int l);
+void getBroadcastAddress(network_t *, char *, int l);
 
 #endif
