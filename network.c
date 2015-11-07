@@ -27,38 +27,46 @@
 int setIPAddress(network_t *n, char *host) {
 	return inet_pton(AF_INET, host, &(n->host) );
 }
-
 int setSubnetMask(network_t *n, char *mask) {
-	return inet_pton(AF_INET, mask, &(n->mask) );
+	
+	// Save return status:
+	int maskret;
+	maskret = inet_pton(AF_INET, mask, &(n->mask) );
+	if ( maskret == 1 ) {
+		// Bitwise calculate our network and broadcast addresses:
+		n->network.s_addr = n->host.s_addr & n->mask.s_addr;
+		n->broadcast.s_addr = n->host.s_addr | ~n->mask.s_addr;
+	}
+	return maskret;
 }
-
 void getIPAddress(network_t *n, char *s, int l) {
 	inet_ntop(AF_INET, &(n->host), s, l);
 }
-
 void getSubnetMask(network_t *n, char *s, int l) {
 	inet_ntop(AF_INET, &(n->mask), s, l);
 }
-
 void getNetworkAddress(network_t *n, char *s, int l) {
-
-	struct in_addr netAddr;
-	netAddr.s_addr = n->host.s_addr & n->mask.s_addr;
-	inet_ntop(AF_INET, &netAddr, s, l);
+	inet_ntop(AF_INET, &(n->network), s, l);
 }
-
+void getBroadcastAddress(network_t *n, char *s, int l) {
+	inet_ntop(AF_INET, &(n->broadcast), s, l);
+}
 void printNetworkDetails(network_t *n) {
 
 	char subnetMask[STRLEN] = "";
 	char hostAddress[STRLEN] = "";
 	char networkAddress[STRLEN] = "";
+	char broadcastAddress[STRLEN] = "";
 
 	getIPAddress(n, hostAddress, STRLEN);
 	getSubnetMask(n, subnetMask, STRLEN);
 	getNetworkAddress(n, networkAddress, STRLEN);
+	getBroadcastAddress(n, broadcastAddress, STRLEN);
 
+	printf("\n");
 	printf("Host Address ... %s\n", hostAddress);
 	printf("---\n");
 	printf("Network Address ... %s\n", networkAddress);
+	printf("Broadcast Address ... %s\n", broadcastAddress);
 	printf("Subnet Mask ... %s\n", subnetMask);
 }
