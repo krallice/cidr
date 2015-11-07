@@ -1,6 +1,6 @@
 /*************************************************************************
 
-    network.h -- determine CIDR network and broadcast address from
+    network.c -- determine CIDR network and broadcast address from
     IPV4 ip address and netmask
     Copyright (C) 2000 Robert L. Lineberger 
     Heavily Modified 2015 Stephen Rozanc.
@@ -21,14 +21,7 @@
 
 ***************************************************************************/
 
-#ifndef NETWORK_H_CIDR
-#define NETWORK_H_CIDR
+void *getSubnetMask(network_t *n, char *s, size_t l) {
 
-typedef struct network_struct {
-	struct in_addr host;
-	struct in_addr mask;
-} network_t;
-
-void *getSubnetMask(network_t *, char *, size_t);
-
-#endif
+	inet_ntop
+}
