@@ -27,6 +27,8 @@
 typedef struct network_struct {
 	struct in_addr host;
 	struct in_addr mask;
+	struct in_addr network;
+	struct in_addr broadcast;
 } network_t;
 
 #define STRLEN 64
