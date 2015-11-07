@@ -34,10 +34,8 @@ int main( int argc, char *argv[] ) {
 	// If not enough (or too many) arguments are supplied, bomb out:
 	if ( argc < 2 || argc > 3 ) {
 		invalid(0, argv[0]);
-	
 	// Else if we have exactly 2 arguments (filename + switch):
 	} else if ( argc == 2 ) {
-
 		// Check to see if user is requesting version or help information:
 		if (strncmp((const char *) argv[1],"-v",2) == 0) {
 			print_version();
@@ -55,7 +53,6 @@ int main( int argc, char *argv[] ) {
 
 	// End user has entered 2 arguments, hopefully meaning ip + subnet mask:
 	} else if ( argc == 3 ) {
-
 		// Check to see if our IP/Masks are valid:
 		if ( setIPAddress(&network, argv[1]) != 1 ) {
 			invalid(1, argv[1]);
