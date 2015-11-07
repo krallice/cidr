@@ -51,22 +51,30 @@ void getNetworkAddress(network_t *n, char *s, int l) {
 void getBroadcastAddress(network_t *n, char *s, int l) {
 	inet_ntop(AF_INET, &(n->broadcast), s, l);
 }
+void getWildcardMask(network_t *n, char *s, int l){
+	struct in_addr wc;
+	wc.s_addr = ~n->mask.s_addr;
+	inet_ntop(AF_INET, &wc, s, l);
+}
 void printNetworkDetails(network_t *n) {
 
 	char subnetMask[STRLEN] = "";
 	char hostAddress[STRLEN] = "";
 	char networkAddress[STRLEN] = "";
 	char broadcastAddress[STRLEN] = "";
+	char wildcardMask[STRLEN] = "";
 
 	getIPAddress(n, hostAddress, STRLEN);
 	getSubnetMask(n, subnetMask, STRLEN);
 	getNetworkAddress(n, networkAddress, STRLEN);
 	getBroadcastAddress(n, broadcastAddress, STRLEN);
+	getWildcardMask(n, wildcardMask, STRLEN);
 
 	printf("\n");
-	printf("Host Address ... %s\n", hostAddress);
+	printf("Host        ... %s\n", hostAddress);
 	printf("---\n");
-	printf("Network Address ... %s\n", networkAddress);
-	printf("Broadcast Address ... %s\n", broadcastAddress);
-	printf("Subnet Mask ... %s\n", subnetMask);
+	printf("Network     ... %s\n", networkAddress);
+	printf("Broadcast   ... %s\n", broadcastAddress);
+	printf("Subnet      ... %s\n", subnetMask);
+	printf("Wildcard    ... %s\n", wildcardMask);
 }
