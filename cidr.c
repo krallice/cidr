@@ -78,17 +78,17 @@ void usage(char *arg) {
 
 	printf("\ncidr version %s October, 2015\n", version_val);
 	printf("Copyright 2000 Robert L. Lineberger\n");
-	printf("Version 2.4.X Heavily Modified 2015 Stephen Rozanc\n");
+	printf("Version 2.4.X Heavily Modified 2015 Stephen Rozanc\n\n");
 	printf("robert@geeksoul.com\n");
 	printf("http://geeksoul.com/robert/cidr.html\n");
 	printf("https://github.com/krallice\n");
 	printf("License: GPL\n\n");
 
 	printf("Contributors:\n");
+	printf("Stephen Rozanc\n");
 	printf("David A. Bandel\n");
 	printf("Iain Lea\n");
-	printf("Herman Robers\n");
-	printf("Stephen Rozanc\n\n");
+	printf("Herman Robers\n\n");
 
 	printf(
 	"Usage:\n\n" 
