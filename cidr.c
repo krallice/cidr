@@ -38,26 +38,22 @@ int main( int argc, char *argv[] ) {
 	// Else if we have exactly 2 arguments (filename + switch):
 	} else if ( argc == 2 ) {
 
-		// Check to see if user is requesting version information:
+		// Check to see if user is requesting version or help information:
 		if (strncmp((const char *) argv[1],"-v",2) == 0) {
 			print_version();
-
-		// Is user requesting help information?
 		} else if (strncmp((const char *) argv[1],"-h",2) == 0) {
 			usage(argv[0]);
-
 		// Else end user is entering CIDR notation, let's check:
 		// TODO: Implement CIDR
 		//} else if (CIDR CHECK) {
 		//
 		//}	
-
 		// Otherwise bomb out:
 		} else {
 			invalid(0, argv[0]);
 		}
 
-	// End user has entered 2 arguments, hopefully meaning ip + subnet mask:`
+	// End user has entered 2 arguments, hopefully meaning ip + subnet mask:
 	} else if ( argc == 3 ) {
 
 		// Check to see if our IP/Masks are valid:
@@ -69,7 +65,7 @@ int main( int argc, char *argv[] ) {
 		}
 	}
 
-//	printDetails(&network);
+	printNetworkDetails(&network);
 
 }
 

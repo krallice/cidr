@@ -32,7 +32,13 @@ int setSubnetMask(network_t *n, char *mask) {
 	return inet_pton(AF_INET, mask, &(n->mask) );
 }
 
-/*void *getSubnetMask(network_t *n, char *s, size_t l) {
+void getSubnetMask(network_t *n, char *s) {
+	inet_ntop(AF_INET, &(n->mask), s, 32);
+}
 
-	inet_ntop
-}*/
+void printNetworkDetails(network_t *n) {
+
+	char *subnetMask = "255.255.255.255";
+	getSubnetMask(&n, subnetMask);
+	printf("Subnet Mask ... %s\n", subnetMask);
+}

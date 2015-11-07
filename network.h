@@ -32,8 +32,10 @@ typedef struct network_struct {
 // Getters:
 int setSubnetMask(network_t *, char *); 
 int setIPAddress(network_t *, char *);
+void printNetworkDetails(network_t*);
 
 // Setters:
-void *getSubnetMask(network_t *, char *, size_t);
+char *getIPAddress(network_t *, char *);
+void getSubnetMask(network_t *, char *);
 
 #endif
