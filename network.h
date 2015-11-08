@@ -33,12 +33,11 @@ typedef struct network_struct {
 
 #define STRLEN 64
 
-// Getters:
+// Setters:
 int setSubnetMask(network_t *, char *); 
 int setIPAddress(network_t *, char *);
-void printNetworkDetails(network_t*);
 
-// Setters:
+// Getters:
 void getIPAddress(network_t *, char *, int l);
 void getSubnetMask(network_t *, char *, int l);
 void getNetworkAddress(network_t *, char *, int l);
@@ -46,5 +45,6 @@ void getBroadcastAddress(network_t *, char *, int l);
 void getWildcardMask(network_t *, char *, int l);
 void getLastUsable(network_t *, char *, int l);
 void getFirstUsable(network_t *, char *, int l);
+void printNetworkDetails(network_t*);
 
 #endif
