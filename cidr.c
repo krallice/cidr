@@ -32,7 +32,9 @@ int main( int argc, char *argv[] ) {
 	network_t network;
 
 	// If not enough (or too many) arguments are supplied, bomb out:
-	if ( argc < 2 || argc > 3 ) {
+	if ( argc < 2 ) {
+		usage(argv[0]);
+	} else if ( argc > 3 ) {
 		invalid(0, argv[0]);
 	// Else if we have exactly 2 arguments (filename + switch):
 	} else if ( argc == 2 ) {
@@ -61,7 +63,6 @@ int main( int argc, char *argv[] ) {
 			invalid(2, argv[2]);
 		}
 	}
-
 	printNetworkDetails(&network);
 }
 
@@ -69,11 +70,11 @@ int main( int argc, char *argv[] ) {
 void usage(char *arg) {
 
 	printf("\ncidr version %s October, 2015\n", version_val);
-	printf("Copyright 2000 Robert L. Lineberger\n");
-	printf("Version 2.4.X Heavily Modified 2015 Stephen Rozanc\n\n");
+	printf("Version 2.4.X Heavily Modified 2015 Stephen Rozanc\n");
+	printf("Original - Copyright 2000 Robert L. Lineberger\n\n");
+	printf("https://github.com/krallice\n");
 	printf("robert@geeksoul.com\n");
 	printf("http://geeksoul.com/robert/cidr.html\n");
-	printf("https://github.com/krallice\n");
 	printf("License: GPL\n\n");
 
 	printf("Contributors:\n");
@@ -83,17 +84,12 @@ void usage(char *arg) {
 	printf("Herman Robers\n\n");
 
 	printf(
-	"Usage:\n\n" 
-	"%s [-v]\n\n"
-	"No arguments\tprint this usage()\n"
-	"\t-v\tprint version information\n\n" 
-	"Short form:\n\n"
-	"%s <ipaddress/prefix> \n\n"
-	"Note: Short form only supports dotted-quad ip address and\n"
-	"      decimal(integer) prefix i.e 192.168.1.10/24.\n\n" 
-	"Long form:\n\n"
-	"%s <ipaddress>  <subnetmask>"
-	"     \n\n",arg,arg,arg);
+	"Usage:\n\n"
+	"%s\t\t\t\tprint usage information (this message)\n"
+	"%s [-v]\t\t\tprint version information\n"
+	"%s [ipaddress/prefix]\tuse short form CIDR notation ie. 127.0.0.1/24 \n"
+	"%s [ipaddress] [subnetmask]\tuse full subnet mask ie. 127.0.0.1 255.255.255.0"
+	"     \n\n",arg,arg,arg,arg);
 
 	exit(EXIT_FAILURE);
 }
@@ -105,46 +101,9 @@ void print_version(void) {
 	exit(EXIT_SUCCESS);
 }
 
-void range_error(int argnum)
-{
- printf("range error: argv[%d]\n",argnum);
- exit(EXIT_FAILURE);
-}
-
 void invalid(int argnum, char* procpath)
 {
  printf("invalid argument: argv[%d]\n",argnum);
  usage(procpath);
  exit(EXIT_FAILURE);
 }
-
-void hosts(unsigned long int i_val,
-           unsigned long int temp_val,
-           unsigned long int mask_val,
-           int hostlist_val,
-           struct in_addr lowhost_val,
-           struct in_addr highhost_val )
-{
- unsigned long int j=0;
-
- if(!hostlist_val)
-  printf("host addresses:\n\n");
- if(hostlist_val)
-  printf("please wait while host addresses are validated...\n\n"); 
-
- temp_val=ntohl(lowhost_val.s_addr);
- for(i_val=temp_val+1;i_val<ntohl(highhost_val.s_addr);++i_val)
- {
-  lowhost_val.s_addr=htonl(i_val);
-  if(!(htonl(temp_val)^(lowhost_val.s_addr&htonl(mask_val))))
-  {
-   ++j;
-   if(!hostlist_val)
-    printf("%s\n",inet_ntoa(lowhost_val) );
-  }
- }
- if(!hostlist_val)
-  printf("\n");
- printf("total host addresses:  %lu\n\n",j);
-}
-

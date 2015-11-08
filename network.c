@@ -94,14 +94,13 @@ void printNetworkDetails(network_t *n) {
 	networkSize = getNetworkSize(n);
 
 	printf("\n");
-	printf("Host        ... %s\n", hostAddress);
-	printf("---\n");
-	printf("Network     ... %s\n", networkAddress);
-	printf("Broadcast   ... %s\n", broadcastAddress);
-	printf("Subnet      ... %s\n", subnetMask);
-	printf("Wildcard    ... %s\n", wildcardMask);
-	printf("First Usab. ... %s\n", firstUsable);
-	printf("Last Usab.  ... %s\n", lastUsable);
-	printf("Net Size    ... %d\n", networkSize);
+	printf("Host address            - %s\n", hostAddress);
+	printf("Network Address		- %s\n", networkAddress);
+	printf("Subnet Mask		- %s\n", subnetMask);
+	printf("Broadcast Address	- %s\n", broadcastAddress);
+	printf("Wildcard Address	- %s\n", wildcardMask);
+	printf("Network Range		- %s - %s (%d Addresses)\n", networkAddress, broadcastAddress, networkSize+2);
+	printf("Usable Range		- %s - %s (%d Usable Hosts)\n", firstUsable, lastUsable,networkSize);
+	printf("\n");
 
 }
