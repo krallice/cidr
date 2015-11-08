@@ -61,7 +61,6 @@ int main( int argc, char *argv[] ) {
 			invalid(2, argv[2]);
 		}
 	}
-
 	printNetworkDetails(&network);
 }
 
@@ -105,46 +104,9 @@ void print_version(void) {
 	exit(EXIT_SUCCESS);
 }
 
-void range_error(int argnum)
-{
- printf("range error: argv[%d]\n",argnum);
- exit(EXIT_FAILURE);
-}
-
 void invalid(int argnum, char* procpath)
 {
  printf("invalid argument: argv[%d]\n",argnum);
  usage(procpath);
  exit(EXIT_FAILURE);
 }
-
-void hosts(unsigned long int i_val,
-           unsigned long int temp_val,
-           unsigned long int mask_val,
-           int hostlist_val,
-           struct in_addr lowhost_val,
-           struct in_addr highhost_val )
-{
- unsigned long int j=0;
-
- if(!hostlist_val)
-  printf("host addresses:\n\n");
- if(hostlist_val)
-  printf("please wait while host addresses are validated...\n\n"); 
-
- temp_val=ntohl(lowhost_val.s_addr);
- for(i_val=temp_val+1;i_val<ntohl(highhost_val.s_addr);++i_val)
- {
-  lowhost_val.s_addr=htonl(i_val);
-  if(!(htonl(temp_val)^(lowhost_val.s_addr&htonl(mask_val))))
-  {
-   ++j;
-   if(!hostlist_val)
-    printf("%s\n",inet_ntoa(lowhost_val) );
-  }
- }
- if(!hostlist_val)
-  printf("\n");
- printf("total host addresses:  %lu\n\n",j);
-}
-

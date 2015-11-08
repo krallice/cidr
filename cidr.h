@@ -34,14 +34,7 @@
 #include <string.h>
 
 void usage(char *);
-void range_error(int);
 void invalid(int, char *);
-void hosts(unsigned long int,
-           unsigned long int,
-           unsigned long int,
-           int,
-           struct in_addr,
-           struct in_addr );
 void print_version(void);
 
 #endif
