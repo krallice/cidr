@@ -16,5 +16,6 @@ all	:
 
 install :
 	$(INSTALL) cidr $(PREFIX)
+	cp -p cidr.1 /usr/local/share/man/man1/
 clean:
 	rm -f cidr cidr.o 
