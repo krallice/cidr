@@ -32,7 +32,9 @@ int main( int argc, char *argv[] ) {
 	network_t network;
 
 	// If not enough (or too many) arguments are supplied, bomb out:
-	if ( argc < 2 || argc > 3 ) {
+	if ( argc < 2 ) {
+		usage(argv[0]);
+	} else if ( argc > 3 ) {
 		invalid(0, argv[0]);
 	// Else if we have exactly 2 arguments (filename + switch):
 	} else if ( argc == 2 ) {
