@@ -68,6 +68,11 @@ void getFirstUsable(network_t *n, char *s, int l){
 	f.s_addr = htonl(ntohl(n->network.s_addr) + 1);
 	inet_ntop(AF_INET, &f, s, l);
 }
+int getNetworkSize(network_t *n){
+	int ns;
+	ns = ntohl(n->broadcast.s_addr) - ntohl(n->network.s_addr) - 1;
+	return ns;
+}
 void printNetworkDetails(network_t *n) {
 
 	char subnetMask[STRLEN] = "";
@@ -77,6 +82,7 @@ void printNetworkDetails(network_t *n) {
 	char wildcardMask[STRLEN] = "";
 	char lastUsable[STRLEN] = "";
 	char firstUsable[STRLEN] = "";
+	int networkSize;
 
 	getIPAddress(n, hostAddress, STRLEN);
 	getSubnetMask(n, subnetMask, STRLEN);
@@ -85,6 +91,7 @@ void printNetworkDetails(network_t *n) {
 	getWildcardMask(n, wildcardMask, STRLEN);
 	getLastUsable(n, lastUsable, STRLEN);
 	getFirstUsable(n, firstUsable, STRLEN);
+	networkSize = getNetworkSize(n);
 
 	printf("\n");
 	printf("Host        ... %s\n", hostAddress);
@@ -95,5 +102,6 @@ void printNetworkDetails(network_t *n) {
 	printf("Wildcard    ... %s\n", wildcardMask);
 	printf("First Usab. ... %s\n", firstUsable);
 	printf("Last Usab.  ... %s\n", lastUsable);
+	printf("Net Size    ... %d\n", networkSize);
 
 }
