@@ -82,17 +82,12 @@ void usage(char *arg) {
 	printf("Herman Robers\n\n");
 
 	printf(
-	"Usage:\n\n" 
-	"%s [-v]\n\n"
-	"No arguments\tprint this usage()\n"
-	"\t-v\tprint version information\n\n" 
-	"Short form:\n\n"
-	"%s <ipaddress/prefix> \n\n"
-	"Note: Short form only supports dotted-quad ip address and\n"
-	"      decimal(integer) prefix i.e 192.168.1.10/24.\n\n" 
-	"Long form:\n\n"
-	"%s <ipaddress>  <subnetmask>"
-	"     \n\n",arg,arg,arg);
+	"Usage:\n\n"
+	"%s\t\t\t\tprint usage information (this message)\n"
+	"%s [-v]\t\t\tprint version information\n"
+	"%s [ipaddress/prefix]\tuse short form CIDR notation ie. 127.0.0.1/24 \n"
+	"%s [ipaddress] [subnetmask]\tuse full subnet mask ie. 127.0.0.1 255.255.255.0"
+	"     \n\n",arg,arg,arg,arg);
 
 	exit(EXIT_FAILURE);
 }
