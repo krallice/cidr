@@ -8,7 +8,7 @@ CCFLAGS=-Wall
 PKGNAME=cidr-${VERSION}
 
 all	:
-	$(CC) $(CCFLAGS) cidr.c -o cidr
+	$(CC) $(CCFLAGS) cidr.c network.c -o cidr
 	$(STRIP) cidr
 
 clean:

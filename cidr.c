@@ -24,6 +24,8 @@
 #include "cidr.h"
 #include "network.h"
 
+const char *version_val="2.4.0";
+
 int main( int argc, char *argv[] ) {
 
 	// Define our network structure:
@@ -32,45 +34,35 @@ int main( int argc, char *argv[] ) {
 	// If not enough (or too many) arguments are supplied, bomb out:
 	if ( argc < 2 || argc > 3 ) {
 		invalid(0, argv[0]);
-	
 	// Else if we have exactly 2 arguments (filename + switch):
 	} else if ( argc == 2 ) {
-
-		// Check to see if user is requesting version information:
+		// Check to see if user is requesting version or help information:
 		if (strncmp((const char *) argv[1],"-v",2) == 0) {
 			print_version();
-
-		// Is user requesting help information?
 		} else if (strncmp((const char *) argv[1],"-h",2) == 0) {
 			usage(argv[0]);
-
 		// Else end user is entering CIDR notation, let's check:
 		// TODO: Implement CIDR
 		//} else if (CIDR CHECK) {
 		//
 		//}	
-
 		// Otherwise bomb out:
 		} else {
 			invalid(0, argv[0]);
 		}
 
-	// End user has entered 2 arguments, hopefully meaning ip + subnet mask:`
+	// End user has entered 2 arguments, hopefully meaning ip + subnet mask:
 	} else if ( argc == 3 ) {
-
 		// Check to see if our IP/Masks are valid:
-		if ( inet_pton(AF_INET, argv[1], &network.host ) != 1 ) {
+		if ( setIPAddress(&network, argv[1]) != 1 ) {
 			invalid(1, argv[1]);
 		}
-		// Check our subnet mask:
-		if ( inet_pton(AF_INET, argv[2], &network.mask ) != 1 ) {
+		if ( setSubnetMask(&network, argv[2]) != 1 ) {
 			invalid(2, argv[2]);
-		}		
-
+		}
 	}
 
-//	printDetails(&network);
-
+	printNetworkDetails(&network);
 }
 
 // Print Usage Patterns to end user:
@@ -78,17 +70,17 @@ void usage(char *arg) {
 
 	printf("\ncidr version %s October, 2015\n", version_val);
 	printf("Copyright 2000 Robert L. Lineberger\n");
-	printf("Version 2.4.X Heavily Modified 2015 Stephen Rozanc\n");
+	printf("Version 2.4.X Heavily Modified 2015 Stephen Rozanc\n\n");
 	printf("robert@geeksoul.com\n");
 	printf("http://geeksoul.com/robert/cidr.html\n");
 	printf("https://github.com/krallice\n");
 	printf("License: GPL\n\n");
 
 	printf("Contributors:\n");
+	printf("Stephen Rozanc\n");
 	printf("David A. Bandel\n");
 	printf("Iain Lea\n");
-	printf("Herman Robers\n");
-	printf("Stephen Rozanc\n\n");
+	printf("Herman Robers\n\n");
 
 	printf(
 	"Usage:\n\n" 

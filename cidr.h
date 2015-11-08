@@ -44,6 +44,4 @@ void hosts(unsigned long int,
            struct in_addr );
 void print_version(void);
 
-const char *version_val="2.4.0";
-
 #endif

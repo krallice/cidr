@@ -27,6 +27,22 @@
 typedef struct network_struct {
 	struct in_addr host;
 	struct in_addr mask;
+	struct in_addr network;
+	struct in_addr broadcast;
 } network_t;
+
+#define STRLEN 64
+
+// Getters:
+int setSubnetMask(network_t *, char *); 
+int setIPAddress(network_t *, char *);
+void printNetworkDetails(network_t*);
+
+// Setters:
+void getIPAddress(network_t *, char *, int l);
+void getSubnetMask(network_t *, char *, int l);
+void getNetworkAddress(network_t *, char *, int l);
+void getBroadcastAddress(network_t *, char *, int l);
+void getWildcardMask(network_t *, char *, int l);
 
 #endif
