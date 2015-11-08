@@ -56,6 +56,11 @@ void getWildcardMask(network_t *n, char *s, int l){
 	wc.s_addr = ~n->mask.s_addr;
 	inet_ntop(AF_INET, &wc, s, l);
 }
+void getLastUsable(network_t *n, char *s, int l){
+	struct in_addr f;
+	f.s_addr = htonl(ntohl(n->broadcast.s_addr) - 1);
+	inet_ntop(AF_INET, &f, s, l);
+}
 void printNetworkDetails(network_t *n) {
 
 	char subnetMask[STRLEN] = "";
@@ -63,12 +68,14 @@ void printNetworkDetails(network_t *n) {
 	char networkAddress[STRLEN] = "";
 	char broadcastAddress[STRLEN] = "";
 	char wildcardMask[STRLEN] = "";
+	char lastUsable[STRLEN] = "";
 
 	getIPAddress(n, hostAddress, STRLEN);
 	getSubnetMask(n, subnetMask, STRLEN);
 	getNetworkAddress(n, networkAddress, STRLEN);
 	getBroadcastAddress(n, broadcastAddress, STRLEN);
 	getWildcardMask(n, wildcardMask, STRLEN);
+	getLastUsable(n, lastUsable, STRLEN);
 
 	printf("\n");
 	printf("Host        ... %s\n", hostAddress);
@@ -77,4 +84,5 @@ void printNetworkDetails(network_t *n) {
 	printf("Broadcast   ... %s\n", broadcastAddress);
 	printf("Subnet      ... %s\n", subnetMask);
 	printf("Wildcard    ... %s\n", wildcardMask);
+	printf("Last Usab.  ... %s\n", lastUsable);
 }
