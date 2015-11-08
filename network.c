@@ -61,6 +61,13 @@ void getLastUsable(network_t *n, char *s, int l){
 	f.s_addr = htonl(ntohl(n->broadcast.s_addr) - 1);
 	inet_ntop(AF_INET, &f, s, l);
 }
+void getFirstUsable(network_t *n, char *s, int l){
+	struct in_addr f;
+	// Convert our network address to host endian, increment by 1, and then reconvert
+	// back to network endian order:
+	f.s_addr = htonl(ntohl(n->network.s_addr) + 1);
+	inet_ntop(AF_INET, &f, s, l);
+}
 void printNetworkDetails(network_t *n) {
 
 	char subnetMask[STRLEN] = "";
@@ -69,6 +76,7 @@ void printNetworkDetails(network_t *n) {
 	char broadcastAddress[STRLEN] = "";
 	char wildcardMask[STRLEN] = "";
 	char lastUsable[STRLEN] = "";
+	char firstUsable[STRLEN] = "";
 
 	getIPAddress(n, hostAddress, STRLEN);
 	getSubnetMask(n, subnetMask, STRLEN);
@@ -76,6 +84,7 @@ void printNetworkDetails(network_t *n) {
 	getBroadcastAddress(n, broadcastAddress, STRLEN);
 	getWildcardMask(n, wildcardMask, STRLEN);
 	getLastUsable(n, lastUsable, STRLEN);
+	getFirstUsable(n, firstUsable, STRLEN);
 
 	printf("\n");
 	printf("Host        ... %s\n", hostAddress);
@@ -84,5 +93,7 @@ void printNetworkDetails(network_t *n) {
 	printf("Broadcast   ... %s\n", broadcastAddress);
 	printf("Subnet      ... %s\n", subnetMask);
 	printf("Wildcard    ... %s\n", wildcardMask);
+	printf("First Usab. ... %s\n", firstUsable);
 	printf("Last Usab.  ... %s\n", lastUsable);
+
 }
