@@ -87,8 +87,8 @@ void usage(char *arg) {
 	"Usage:\n\n"
 	"%s\t\t\t\tprint usage information (this message)\n"
 	"%s [-v]\t\t\tprint version information\n"
-	"%s [ipaddress/prefix]\tuse short form CIDR notation ie. 127.0.0.1/24 \n"
-	"%s [ipaddress] [subnetmask]\tuse full subnet mask ie. 127.0.0.1 255.255.255.0"
+	"%s [ipaddress/prefix]\tuse short form CIDR notation ie. 198.51.100.0/24 \n"
+	"%s [ipaddress] [subnetmask]\tuse full subnet mask ie. 198.51.100.0 255.255.255.0"
 	"     \n\n",arg,arg,arg,arg);
 
 	exit(EXIT_FAILURE);
