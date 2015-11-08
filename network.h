@@ -44,5 +44,6 @@ void getSubnetMask(network_t *, char *, int l);
 void getNetworkAddress(network_t *, char *, int l);
 void getBroadcastAddress(network_t *, char *, int l);
 void getWildcardMask(network_t *, char *, int l);
+void getFirstUsable(network_t *, char *, int l);
 
 #endif
