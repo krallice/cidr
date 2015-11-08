@@ -68,11 +68,11 @@ int main( int argc, char *argv[] ) {
 void usage(char *arg) {
 
 	printf("\ncidr version %s October, 2015\n", version_val);
-	printf("Copyright 2000 Robert L. Lineberger\n");
-	printf("Version 2.4.X Heavily Modified 2015 Stephen Rozanc\n\n");
+	printf("Version 2.4.X Heavily Modified 2015 Stephen Rozanc\n");
+	printf("Original - Copyright 2000 Robert L. Lineberger\n\n");
+	printf("https://github.com/krallice\n");
 	printf("robert@geeksoul.com\n");
 	printf("http://geeksoul.com/robert/cidr.html\n");
-	printf("https://github.com/krallice\n");
 	printf("License: GPL\n\n");
 
 	printf("Contributors:\n");
