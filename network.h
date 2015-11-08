@@ -46,5 +46,6 @@ void getWildcardMask(network_t *, char *, int l);
 void getLastUsable(network_t *, char *, int l);
 void getFirstUsable(network_t *, char *, int l);
 void printNetworkDetails(network_t*);
+int getNetworkSize(network_t *);
 
 #endif
