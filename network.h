@@ -36,6 +36,7 @@ typedef struct network_struct {
 // Setters:
 int setSubnetMask(network_t *, char *); 
 int setIPAddress(network_t *, char *);
+int splitCIDR(network_t *, char *, char *, char *);
 
 // Getters:
 void getIPAddress(network_t *, char *, int l);

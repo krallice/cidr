@@ -39,6 +39,24 @@ int setSubnetMask(network_t *n, char *mask) {
 	}
 	return maskret;
 }
+int splitCIDR(network_t *n, char *fullstring, char *ip, char *cidr) {
+
+	ip = strtok(fullstring,"/");
+	cidr = strtok(NULL, "/");
+	printf("ip is %s\n", ip);
+	printf("cidr is %s\n", cidr);
+
+	// Validity checks:
+	if ( ip == NULL || cidr == NULL ) {
+		return 2;
+	}
+	int i_cidr = atoi(cidr);
+	if ( i_cidr > 32 || i_cidr < 1 ) {
+		return 2;
+	}
+	// Exit successfully:
+	return 1;
+}
 void getIPAddress(network_t *n, char *s, int l) {
 	inet_ntop(AF_INET, &(n->host), s, l);
 }
