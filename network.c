@@ -33,18 +33,24 @@ int setSubnetMask(network_t *n, char *mask) {
 	int maskret;
 	maskret = inet_pton(AF_INET, mask, &(n->mask) );
 	if ( maskret == 1 ) {
-		// Bitwise calculate our network and broadcast addresses:
-		n->network.s_addr = n->host.s_addr & n->mask.s_addr;
-		n->broadcast.s_addr = n->host.s_addr | ~n->mask.s_addr;
+		calculateNetAndBroadcast(n);
 	}
 	return maskret;
+}
+void calculateNetAndBroadcast(network_t *n) {
+	// Bitwise calculate our network and broadcast addresses:
+	n->network.s_addr = n->host.s_addr & n->mask.s_addr;
+	n->broadcast.s_addr = n->host.s_addr | ~n->mask.s_addr;
+}
+void convertCIDRToNetmask(network_t *n, int i_cidr){
+	int mask = ~(0xFFFFFFFF >> i_cidr);
+	n->mask.s_addr = htonl(mask);
+	calculateNetAndBroadcast(n);
 }
 int splitCIDR(network_t *n, char *fullstring, char *ip, char *cidr) {
 
 	ip = strtok(fullstring,"/");
 	cidr = strtok(NULL, "/");
-	printf("ip is %s\n", ip);
-	printf("cidr is %s\n", cidr);
 
 	// Validity checks:
 	if ( ip == NULL || cidr == NULL ) {
@@ -54,7 +60,10 @@ int splitCIDR(network_t *n, char *fullstring, char *ip, char *cidr) {
 	if ( i_cidr > 32 || i_cidr < 1 ) {
 		return 2;
 	}
-	// Exit successfully:
+	if ( setIPAddress(n, ip) != 1 ) {
+		return 3;
+	}
+	convertCIDRToNetmask(n, i_cidr);
 	return 1;
 }
 void getIPAddress(network_t *n, char *s, int l) {

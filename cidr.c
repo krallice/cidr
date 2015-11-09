@@ -44,7 +44,6 @@ int main( int argc, char *argv[] ) {
 		} else if (strncmp((const char *) argv[1],"-h",2) == 0) {
 			usage(argv[0]);
 		// Else end user is entering CIDR notation, let's check:
-		// TODO: Implement CIDR
 		} else {
 			char *ip;
 			char *cidr;
@@ -52,7 +51,6 @@ int main( int argc, char *argv[] ) {
 				invalid(1, argv[1]);
 			}
 		}
-
 	// End user has entered 2 arguments, hopefully meaning ip + subnet mask:
 	} else if ( argc == 3 ) {
 		// Check to see if our IP/Masks are valid:
@@ -64,6 +62,7 @@ int main( int argc, char *argv[] ) {
 		}
 	}
 	printNetworkDetails(&network);
+	return 0;
 }
 
 // Print Usage Patterns to end user:
