@@ -100,6 +100,15 @@ int getNetworkSize(network_t *n){
 	ns = ntohl(n->broadcast.s_addr) - ntohl(n->network.s_addr) - 1;
 	return ns;
 }
+int getBitmask(network_t *n){
+	unsigned int mask = ntohl((unsigned int)n->mask.s_addr);
+	int counter = 0;
+	while (mask){
+		counter++;
+		mask &= (mask - 1);
+	}
+	return counter;
+}
 void printNetworkDetails(network_t *n) {
 
 	char subnetMask[STRLEN] = "";
@@ -110,6 +119,7 @@ void printNetworkDetails(network_t *n) {
 	char lastUsable[STRLEN] = "";
 	char firstUsable[STRLEN] = "";
 	int networkSize;
+	int bitMask;
 
 	getIPAddress(n, hostAddress, STRLEN);
 	getSubnetMask(n, subnetMask, STRLEN);
@@ -119,6 +129,7 @@ void printNetworkDetails(network_t *n) {
 	getLastUsable(n, lastUsable, STRLEN);
 	getFirstUsable(n, firstUsable, STRLEN);
 	networkSize = getNetworkSize(n);
+	bitMask = getBitmask(n);
 
 	printf("\n");
 	printf("Host address            - %s\n", hostAddress);
@@ -126,6 +137,7 @@ void printNetworkDetails(network_t *n) {
 	printf("Subnet Mask		- %s\n", subnetMask);
 	printf("Broadcast Address	- %s\n", broadcastAddress);
 	printf("Wildcard Address	- %s\n", wildcardMask);
+	printf("Network Prefix (CIDR)	- /%d\n", bitMask);
 	printf("Network Range		- %s - %s (%d Addresses)\n", networkAddress, broadcastAddress, networkSize+2);
 	printf("Usable Range		- %s - %s (%d Usable Hosts)\n", firstUsable, lastUsable,networkSize);
 	printf("\n");
