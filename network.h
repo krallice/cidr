@@ -24,6 +24,21 @@
 #ifndef NETWORK_H_CIDR
 #define NETWORK_H_CIDR
 
+/*
+sockaddr_in structure prototype from <netinet/in.h>:
+
+struct sockaddr_in {
+    short            sin_family;   // e.g. AF_INET
+    unsigned short   sin_port;     // e.g. htons(3490)
+    struct in_addr   sin_addr;     // see struct in_addr, below
+    char             sin_zero[8];  // zero this if you want to
+};
+
+struct in_addr {
+    unsigned long s_addr; 
+};
+*/
+
 typedef struct network_struct {
 	struct in_addr host;
 	struct in_addr mask;
@@ -36,6 +51,9 @@ typedef struct network_struct {
 // Setters:
 int setSubnetMask(network_t *, char *); 
 int setIPAddress(network_t *, char *);
+int splitCIDR(network_t *, char *, char *, char *);
+void convertCIDRToNetmask(network_t *, int);
+void calculateNetAndBroadcast(network_t *); 
 
 // Getters:
 void getIPAddress(network_t *, char *, int l);
