@@ -63,6 +63,8 @@ void getBroadcastAddress(network_t *, char *, int l);
 void getWildcardMask(network_t *, char *, int l);
 void getLastUsable(network_t *, char *, int l);
 void getFirstUsable(network_t *, char *, int l);
+void getSecondUsable(network_t *, char *, int l);
+void getThirdUsable(network_t *, char *, int l);
 void printNetworkDetails(network_t*);
 int getNetworkSize(network_t *);
 

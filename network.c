@@ -95,6 +95,16 @@ void getFirstUsable(network_t *n, char *s, int l){
 	f.s_addr = htonl(ntohl(n->network.s_addr) + 1);
 	inet_ntop(AF_INET, &f, s, l);
 }
+void getSecondUsable(network_t *n, char *s, int l){
+	struct in_addr f;
+	f.s_addr = htonl(ntohl(n->network.s_addr) + 2);
+	inet_ntop(AF_INET, &f, s, l);
+}
+void getThirdUsable(network_t *n, char *s, int l){
+	struct in_addr f;
+	f.s_addr = htonl(ntohl(n->network.s_addr) + 3);
+	inet_ntop(AF_INET, &f, s, l);
+}
 int getNetworkSize(network_t *n){
 	int ns;
 	ns = ntohl(n->broadcast.s_addr) - ntohl(n->network.s_addr) - 1;
@@ -118,6 +128,8 @@ void printNetworkDetails(network_t *n) {
 	char wildcardMask[STRLEN] = "";
 	char lastUsable[STRLEN] = "";
 	char firstUsable[STRLEN] = "";
+	char secondUsable[STRLEN] = "";
+	char thirdUsable[STRLEN] = "";
 	int networkSize;
 	int bitMask;
 
@@ -128,6 +140,8 @@ void printNetworkDetails(network_t *n) {
 	getWildcardMask(n, wildcardMask, STRLEN);
 	getLastUsable(n, lastUsable, STRLEN);
 	getFirstUsable(n, firstUsable, STRLEN);
+	getSecondUsable(n, secondUsable, STRLEN);
+	getThirdUsable(n, thirdUsable, STRLEN);
 	networkSize = getNetworkSize(n);
 	bitMask = getBitmask(n);
 
@@ -141,5 +155,12 @@ void printNetworkDetails(network_t *n) {
 	printf("Network Range		- %s - %s (%d Addresses)\n", networkAddress, broadcastAddress, networkSize+2);
 	printf("Usable Range		- %s - %s (%d Usable Hosts)\n", firstUsable, lastUsable,networkSize);
 	printf("\n");
+	printf("A IP			- %s\n", firstUsable);
+	printf("B IP			- %s\n", secondUsable);
+	printf("C IP			- %s\n", thirdUsable);
+	printf("GW IP			- %s\n", lastUsable);
+	printf("\n");
+
+	// Provisioning Assistance:
 
 }
