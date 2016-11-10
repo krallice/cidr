@@ -147,7 +147,7 @@ void printNetworkDetails(network_t *n) {
 
 	printf("\n");
 	printf("Host address            - %s\n", hostAddress);
-	printf("Network Address		- %s\n", networkAddress);
+	printf("Network Address		- %s (%s/%d)\n", networkAddress, networkAddress, bitMask);
 	printf("Subnet Mask		- %s\n", subnetMask);
 	printf("Broadcast Address	- %s\n", broadcastAddress);
 	printf("Wildcard Address	- %s\n", wildcardMask);
