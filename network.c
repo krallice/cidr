@@ -88,6 +88,11 @@ void getLastUsable(network_t *n, char *s, int l){
 	f.s_addr = htonl(ntohl(n->broadcast.s_addr) - 1);
 	inet_ntop(AF_INET, &f, s, l);
 }
+void getLastUsableVDC(network_t *n, char *s, int l){
+	struct in_addr f;
+	f.s_addr = htonl(ntohl(n->broadcast.s_addr) - 2);
+	inet_ntop(AF_INET, &f, s, l);
+}
 void getFirstUsable(network_t *n, char *s, int l){
 	struct in_addr f;
 	// Convert our network address to host endian, increment by 1, and then reconvert
@@ -127,6 +132,7 @@ void printNetworkDetails(network_t *n) {
 	char broadcastAddress[STRLEN] = "";
 	char wildcardMask[STRLEN] = "";
 	char lastUsable[STRLEN] = "";
+	char lastUsableVDC[STRLEN] = "";
 	char firstUsable[STRLEN] = "";
 	char secondUsable[STRLEN] = "";
 	char thirdUsable[STRLEN] = "";
@@ -139,6 +145,7 @@ void printNetworkDetails(network_t *n) {
 	getBroadcastAddress(n, broadcastAddress, STRLEN);
 	getWildcardMask(n, wildcardMask, STRLEN);
 	getLastUsable(n, lastUsable, STRLEN);
+	getLastUsableVDC(n, lastUsableVDC, STRLEN);
 	getFirstUsable(n, firstUsable, STRLEN);
 	getSecondUsable(n, secondUsable, STRLEN);
 	getThirdUsable(n, thirdUsable, STRLEN);
@@ -154,13 +161,15 @@ void printNetworkDetails(network_t *n) {
 	printf("Network Prefix (CIDR)	- /%d\n", bitMask);
 	printf("Network Range		- %s - %s (%d Addresses)\n", networkAddress, broadcastAddress, networkSize+2);
 	printf("Usable Range		- %s - %s (%d Usable Hosts)\n", firstUsable, lastUsable,networkSize);
+
+	// Provisioning Assistance:
 	printf("\n");
 	printf("A IP			- %s\n", firstUsable);
 	printf("B IP			- %s\n", secondUsable);
 	printf("C IP			- %s\n", thirdUsable);
 	printf("GW IP			- %s\n", lastUsable);
+	printf("VDC IPPool		- %s - %s\n", firstUsable, lastUsableVDC);
 	printf("\n");
 
-	// Provisioning Assistance:
 
 }
