@@ -29,7 +29,7 @@ static void usage(char *);
 static void invalid(int, char *);
 static void print_version(void);
 
-const char *version_val="2.4.0";
+const char *version_val="2.4.1";
 
 int main( int argc, char *argv[] ) {
 
