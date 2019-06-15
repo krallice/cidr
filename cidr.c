@@ -24,6 +24,11 @@
 #include "cidr.h"
 #include "network.h"
 
+// Prototypes:
+static void usage(char *);
+static void invalid(int, char *);
+static void print_version(void);
+
 const char *version_val="2.4.0";
 
 int main( int argc, char *argv[] ) {
@@ -45,8 +50,8 @@ int main( int argc, char *argv[] ) {
 			usage(argv[0]);
 		// Else end user is entering CIDR notation, let's check:
 		} else {
-			char *ip;
-			char *cidr;
+			char *ip = NULL;
+			char *cidr = NULL;
 			if ( splitCIDR(&network, argv[1], ip, cidr) != 1 ) {
 				invalid(1, argv[1]);
 			}
@@ -66,7 +71,7 @@ int main( int argc, char *argv[] ) {
 }
 
 // Print Usage Patterns to end user:
-void usage(char *arg) {
+static void usage(char *arg) {
 
 	printf("\ncidr version %s October, 2015\n", version_val);
 	printf("Version 2.4.X Heavily Modified 2015 Stephen Rozanc\n");
@@ -94,13 +99,13 @@ void usage(char *arg) {
 }
 
 // Print Version information to end user:
-void print_version(void) {
+static void print_version(void) {
 
 	fprintf(stderr,"cidr version %s\n",version_val);
 	exit(EXIT_SUCCESS);
 }
 
-void invalid(int argnum, char* procpath)
+static void invalid(int argnum, char* procpath)
 {
  printf("invalid argument: argv[%d]\n",argnum);
  usage(procpath);

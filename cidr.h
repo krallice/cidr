@@ -33,8 +33,4 @@
 #include <arpa/inet.h>
 #include <string.h>
 
-void usage(char *);
-void invalid(int, char *);
-void print_version(void);
-
 #endif
